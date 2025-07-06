@@ -1,10 +1,10 @@
 {
-  "Name": "Stardew Multiplayer Server",
-  "Author": "funny-snek & Zuberii & moy",
-  "Version": "1.0.5",
-  "Description": "A Headless server mod.",
-  "UniqueID": "moy.Always_On_Server",
-  "EntryDll": "Stardew-Multiplayer-Server.dll",
+  "Name": "星露谷服务器模组",
+  "Author": "funny-snek & Zuberii & moy & Cai汉化",
+  "Version": "1.0.5 (汉)",
+  "Description": "一个无头服务器模组.",
+  "UniqueID": "moy.Always_On_Server_Chinese",
+  "EntryDll": "Stardew-Multiplayer-Server-Chinese.dll",
   "MinimumApiVersion": "4.0",
-  "UpdateKeys": [ "Nexus:20659" ]
+  "UpdateKeys": [ ]
 }

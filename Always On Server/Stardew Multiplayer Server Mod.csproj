@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <GamePath>D:\SteamLibrary\steamapps\common\Stardew Valley</GamePath>
     <OutputType>Library</OutputType>
     <RootNamespace>Stardew_Multiplayer_Server</RootNamespace>
     <AssemblyName>Stardew-Multiplayer-Server</AssemblyName>

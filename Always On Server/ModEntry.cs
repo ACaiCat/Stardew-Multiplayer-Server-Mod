@@ -106,9 +106,9 @@ namespace Always_On_Server
 
             this.Config = this.Helper.ReadConfig<ModConfig>();
 
-            helper.ConsoleCommands.Add("server", "Toggles headless server on/off", this.ServerToggle);
-            helper.ConsoleCommands.Add("debug_server", "Turns debug mode on/off, lets server run when no players are connected", this.DebugToggle);
-
+            helper.ConsoleCommands.Add("server", "切换无界面服务器的开启/关闭状态", this.ServerToggle);
+            helper.ConsoleCommands.Add("debug_server", "切换调试模式开关（无玩家连接时服务器仍继续运行）", this.DebugToggle);
+            
             helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
             helper.Events.GameLoop.Saving += this.OnSaving; // Shipping Menu handler
             helper.Events.GameLoop.OneSecondUpdateTicked += this.OnOneSecondUpdateTicked; //game tick event handler
@@ -164,8 +164,8 @@ namespace Always_On_Server
                 Game1.player.setSkillLevel("Combat", 10);
                 ////////////////////////////////////////
                 IsEnabled = true;
-                Game1.chatBox.addInfoMessage("The Host is in Server Mode!");
-                this.Monitor.Log("Server Mode On!", LogLevel.Info);
+                Game1.chatBox.addInfoMessage("主机处于服务器模式!");
+                this.Monitor.Log("服务器模式已开启!", LogLevel.Info);
             }
 
         }
@@ -176,7 +176,7 @@ namespace Always_On_Server
             if (Context.IsWorldReady)
             {
                 this.debug = !debug;
-                this.Monitor.Log($"Server Debug {(debug ? "On" : "Off")}", LogLevel.Info);
+                this.Monitor.Log($"服务器调试已{(debug ? "开启" : "关闭")}", LogLevel.Info);
             }
         }
 
@@ -212,15 +212,15 @@ namespace Always_On_Server
             if (Game1.options.enableServer && IsEnabled)
             {
                 int connectionsCount = Game1.server.connectionsCount;
-                DrawTextBox(5, 100, Game1.dialogueFont, "Server Mode On");
-                DrawTextBox(5, 180, Game1.dialogueFont, $"Press {this.Config.serverHotKey} On/Off");
+                DrawTextBox(5, 100, Game1.dialogueFont, "服务器模式已开启");
+                DrawTextBox(5, 180, Game1.dialogueFont, $"按{this.Config.serverHotKey}打开/关闭");
                 int profitMargin = this.Config.profitmargin;
-                DrawTextBox(5, 260, Game1.dialogueFont, $"Profit Margin: {profitMargin}%");
-                DrawTextBox(5, 340, Game1.dialogueFont, $"{connectionsCount} Players Online");
+                DrawTextBox(5, 260, Game1.dialogueFont, $"利润率: {profitMargin}%");
+                DrawTextBox(5, 340, Game1.dialogueFont, $"当前有{connectionsCount}名玩家在线");
                 if (Game1.server.getInviteCode() != null)
                 {
                     string inviteCode = Game1.server.getInviteCode();
-                    DrawTextBox(5, 420, Game1.dialogueFont, $"Invite Code: {inviteCode}");
+                    DrawTextBox(5, 420, Game1.dialogueFont, $"邀请码: {inviteCode}");
                 }
             }
         }
@@ -237,11 +237,11 @@ namespace Always_On_Server
                     IsEnabled = true;
 
 
-                    this.Monitor.Log("Server Mode On!", LogLevel.Info);
-                    Game1.chatBox.addInfoMessage("The Host is in Server Mode!");
+                    this.Monitor.Log("服务器模式已开启!", LogLevel.Info);
+                    Game1.chatBox.addInfoMessage("主机处于服务器模式!!");
 
                     Game1.displayHUD = true;
-                    Game1.addHUDMessage(new HUDMessage("Server Mode On!"));
+                    Game1.addHUDMessage(new HUDMessage("服务器模式已开启!"));
 
                     Game1.options.pauseWhenOutOfFocus = false;
 
@@ -277,19 +277,19 @@ namespace Always_On_Server
                     Game1.player.setSkillLevel("Fishing", 10);
                     Game1.player.setSkillLevel("Combat", 10);
                     ///////////////////////////////////////////
-                    Game1.addHUDMessage(new HUDMessage("Server Mode COMPLETE!"));
+                    Game1.addHUDMessage(new HUDMessage("服务器模式已就绪!"));
                     ///////////////////////////////////////////
 
                 }
                 else
                 {
                     IsEnabled = false;
-                    this.Monitor.Log("The server off!", LogLevel.Info);
+                    this.Monitor.Log("服务器模式已关闭!", LogLevel.Info);
 
-                    Game1.chatBox.addInfoMessage("The Host has returned!");
+                    Game1.chatBox.addInfoMessage("主机已恢复控制!");
 
                     Game1.displayHUD = true;
-                    Game1.addHUDMessage(new HUDMessage("Server Mode Off!"));
+                    Game1.addHUDMessage(new HUDMessage("服务器模式已关闭!"));
 
                     //set player levels to stored levels
 
@@ -334,11 +334,11 @@ namespace Always_On_Server
                     {
                         Helper.ReadConfig<ModConfig>();
                         IsEnabled = true;
-                        this.Monitor.Log("The server is on!", LogLevel.Info);
-                        Game1.chatBox.addInfoMessage("The Host is in Server Mode!");
+                        this.Monitor.Log("服务器模式已开启!", LogLevel.Info);
+                        Game1.chatBox.addInfoMessage("主机处于服务器模式!");
 
                         Game1.displayHUD = true;
-                        Game1.addHUDMessage(new HUDMessage("Server Mode On!"));
+                        Game1.addHUDMessage(new HUDMessage("服务器模式已开启!"));
 
                         Game1.options.pauseWhenOutOfFocus = false;
                         // store levels, set in game levels to max
@@ -372,17 +372,17 @@ namespace Always_On_Server
                         Game1.player.setSkillLevel("Fishing", 10);
                         Game1.player.setSkillLevel("Combat", 10);
                         ///////////////////////////////////////////
-                        Game1.addHUDMessage(new HUDMessage("Server Mode COMPLETE!"));
+                        Game1.addHUDMessage(new HUDMessage("服务器模式已就绪!"));
                     }
                     else
                     {
                         IsEnabled = false;
-                        this.Monitor.Log("The server is off!", LogLevel.Info);
+                        this.Monitor.Log("服务器模式已关闭!", LogLevel.Info);
 
-                        Game1.chatBox.addInfoMessage("The Host has returned!");
+                        Game1.chatBox.addInfoMessage("主机已恢复控制!");
 
                         Game1.displayHUD = true;
-                        Game1.addHUDMessage(new HUDMessage("Server Mode Off!"));
+                        Game1.addHUDMessage(new HUDMessage("服务器模式已关闭!"));
 
                         //set player levels to stored levels
                         
@@ -459,13 +459,13 @@ namespace Always_On_Server
                     {
                         Game1.netWorldState.Value.IsPaused = true;
                         clientPaused = true;
-                        this.SendChatMessage("Game Paused");
+                        this.SendChatMessage("游戏已暂停");
                     }
                     if (lastFragment != null && lastFragment == "!unpause")
                     {
                         Game1.netWorldState.Value.IsPaused = false;
                         clientPaused = false;
-                        this.SendChatMessage("Game UnPaused");
+                        this.SendChatMessage("游戏已解除暂停");
                     }
                 }
             }
@@ -480,7 +480,7 @@ namespace Always_On_Server
                 {
                     if (inviteCode != Game1.server.getInviteCode())
                     {
-                        DesktopClipboard.SetText($"Invite Code: {Game1.server.getInviteCode()}");
+                        DesktopClipboard.SetText($"邀请码: {Game1.server.getInviteCode()}");
                         inviteCode = Game1.server.getInviteCode();
                     }
                 }
@@ -622,7 +622,7 @@ namespace Always_On_Server
                 float chatEgg = this.Config.eggHuntCountDownConfig / 60f;
                 if (eggHuntCountDown == 1)
                 {
-                    this.SendChatMessage($"The Egg Hunt will begin in {chatEgg:0.#} minutes.");
+                    this.SendChatMessage($"彩蛋寻宝将在{chatEgg:0.#}分钟后开始！");
                 }
 
                 if (eggHuntCountDown == this.Config.eggHuntCountDownConfig + 1)
@@ -662,7 +662,7 @@ namespace Always_On_Server
                 float chatFlower = this.Config.flowerDanceCountDownConfig / 60f;
                 if (flowerDanceCountDown == 1)
                 {
-                    this.SendChatMessage($"The Flower Dance will begin in {chatFlower:0.#} minutes.");
+                    this.SendChatMessage($"花舞节将在{chatFlower:0.#}分钟后开始！");
                 }
 
                 if (flowerDanceCountDown == this.Config.flowerDanceCountDownConfig + 1)
@@ -705,7 +705,7 @@ namespace Always_On_Server
                 float chatSoup = this.Config.luauSoupCountDownConfig / 60f;
                 if (luauSoupCountDown == 1)
                 {
-                    this.SendChatMessage($"The Soup Tasting will begin in {chatSoup:0.#} minutes.");
+                    this.SendChatMessage($"州长试毒将在{chatSoup:0.#}分钟后开始！");
 
                     //add iridium starfruit to soup
                     var item = new SObject("Starfruit", 1, false, -1, 3);
@@ -749,7 +749,7 @@ namespace Always_On_Server
                 float chatJelly = this.Config.jellyDanceCountDownConfig / 60f;
                 if (jellyDanceCountDown == 1)
                 {
-                    this.SendChatMessage($"The Dance of the Moonlight Jellies will begin in {chatJelly:0.#} minutes.");
+                    this.SendChatMessage($"月光水母起舞将在{chatJelly:0.#}分钟后开始！");
                 }
 
                 if (jellyDanceCountDown == this.Config.jellyDanceCountDownConfig + 1)
@@ -785,10 +785,10 @@ namespace Always_On_Server
                 grangeDisplayCountDown += 1;
                 festivalTicksForReset += 1;
                 //festival timeout code
-                if (festivalTicksForReset == this.Config.fairTimeOut - 120)
+                if (festivalTicksForReset == this.Config.winterStarTimeOut - 120) 
                 {
-                    this.SendChatMessage("2 minutes to the exit or");
-                    this.SendChatMessage("everyone will be kicked.");
+                    this.SendChatMessage("距离节日结束还剩2分钟，");  
+                    this.SendChatMessage("请及时离开，否则将被踢出。");
                 }
                 if (festivalTicksForReset >= this.Config.fairTimeOut)
                 {
@@ -798,7 +798,7 @@ namespace Always_On_Server
                 float chatGrange = this.Config.grangeDisplayCountDownConfig / 60f;
                 if (grangeDisplayCountDown == 1)
                 {
-                    this.SendChatMessage($"The Grange Judging will begin in {chatGrange:0.#} minutes.");
+                    this.SendChatMessage($"农庄展览比赛将在{chatGrange:0.#}分钟后开始！");
                 }
 
                 if (grangeDisplayCountDown == this.Config.grangeDisplayCountDownConfig + 1)
@@ -815,10 +815,10 @@ namespace Always_On_Server
                 goldenPumpkinCountDown += 1;
                 festivalTicksForReset += 1;
                 //festival timeout code
-                if (festivalTicksForReset == this.Config.spiritsEveTimeOut - 120)
+                if (festivalTicksForReset == this.Config.winterStarTimeOut - 120) 
                 {
-                    this.SendChatMessage("2 minutes to the exit or");
-                    this.SendChatMessage("everyone will be kicked.");
+                    this.SendChatMessage("距离节日结束还剩2分钟，");  
+                    this.SendChatMessage("请及时离开，否则将被踢出。");
                 }
                 if (festivalTicksForReset >= this.Config.spiritsEveTimeOut)
                 {
@@ -842,7 +842,7 @@ namespace Always_On_Server
                 float chatIceFish = this.Config.iceFishingCountDownConfig / 60f;
                 if (iceFishingCountDown == 1)
                 {
-                    this.SendChatMessage($"The Ice Fishing Contest will begin in {chatIceFish:0.#} minutes.");
+                    this.SendChatMessage($"冰钓比赛将在{chatIceFish:0.#}分钟后开始！");
                 }
 
                 if (iceFishingCountDown == this.Config.iceFishingCountDownConfig + 1)
@@ -872,10 +872,10 @@ namespace Always_On_Server
                 winterFeastCountDown += 1;
                 festivalTicksForReset += 1;
                 //festival timeout code
-                if (festivalTicksForReset == this.Config.winterStarTimeOut - 120)
+                if (festivalTicksForReset == this.Config.winterStarTimeOut - 120) 
                 {
-                    this.SendChatMessage("2 minutes to the exit or");
-                    this.SendChatMessage("everyone will be kicked.");
+                    this.SendChatMessage("距离节日结束还剩2分钟，");  
+                    this.SendChatMessage("请及时离开，否则将被踢出。");
                 }
                 if (festivalTicksForReset >= this.Config.winterStarTimeOut)
                 {
@@ -937,17 +937,17 @@ namespace Always_On_Server
                             if (currentTime >= this.Config.timeOfDayToSleep)
                             {
                                 GoToBed();
-                                this.SendChatMessage("Trying to go to bed.");
+                                this.SendChatMessage("正在尝试睡觉...");
                             }
                             else
                             {
-                                this.SendChatMessage("It's too early.");
-                                this.SendChatMessage($"Try after {this.Config.timeOfDayToSleep}.");
+                                this.SendChatMessage("现在时间还太早。"); 
+                                this.SendChatMessage($"请于{this.Config.timeOfDayToSleep}后再试。");
                             }
                         }
                         if (lastFragment == "!festival")
                         {
-                            this.SendChatMessage("Trying to go to Festival.");
+                            this.SendChatMessage("正在尝试加入节日...");
 
                             if (currentDate == eggFestival)
                             {
@@ -984,7 +984,7 @@ namespace Always_On_Server
                             }
                             else
                             {
-                                this.SendChatMessage("Festival Not Ready.");
+                                this.SendChatMessage("节日未准备就绪。");
                             }
                         }
                         if (lastFragment == "!event")
@@ -1034,33 +1034,33 @@ namespace Always_On_Server
                             }
                             else
                             {
-                                this.SendChatMessage("I'm not at a Festival.");
+                                this.SendChatMessage("当前没有处于节日中。");
                             }
                         }
                         if (lastFragment == "!leave")
                         {
                             if (Game1.CurrentEvent != null && Game1.CurrentEvent.isFestival)
                             {
-                                this.SendChatMessage("Trying to leave Festival");
+                                this.SendChatMessage("正在尝试离开节日...");
                                 this.LeaveFestival();
                             }
                             else
                             {
-                                this.SendChatMessage("I'm not at a Festival.");
+                                this.SendChatMessage("当前没有处于节日中。");
                             }
                         }
-                        if (lastFragment == "!unstick")
+                        if (lastFragment == "!unstick") 
                         {
                             if (Game1.player.currentLocation is FarmHouse)
                             {
-                                this.SendChatMessage("Warping to Farm.");
+                                this.SendChatMessage("正在传送至农场...");
                                 Game1.warpFarmer("Farm", 64, 15, false);
                             }
-                            else
+                            else 
                             {
-                                this.SendChatMessage("Warping inside house.");
+                                this.SendChatMessage("正在传送至屋内...");
                                 getBedCoordinates();
-                                Game1.warpFarmer("Farmhouse", bedX, bedY, false);
+                                Game1.warpFarmer("Farmhouse", bedX, bedY, false); 
                             }
                         }
 
@@ -1188,9 +1188,8 @@ namespace Always_On_Server
 
                         if (currentTime >= 600 && currentTime <= 630)
                         {
-                            this.SendChatMessage("Egg Festival Today!");
-                            this.SendChatMessage("I will not be in bed until after 2:00 P.M.");
-
+                            this.SendChatMessage("今天是复活节！");  // 节日名称本地化
+                            this.SendChatMessage("下午2点前我不会睡觉。");  // 时间表述本地化
                         }
                         EggFestival();
                     }
@@ -1203,8 +1202,8 @@ namespace Always_On_Server
 
                         if (currentTime >= 600 && currentTime <= 630)
                         {
-                            this.SendChatMessage("Flower Dance Today.");
-                            this.SendChatMessage("I will not be in bed until after 2:00 P.M.");
+                            this.SendChatMessage("今天是花舞节！");
+                            this.SendChatMessage("下午2点前我不会睡觉。");
 
                         }
                         FlowerDance();
@@ -1216,8 +1215,8 @@ namespace Always_On_Server
 
                         if (currentTime >= 600 && currentTime <= 630)
                         {
-                            this.SendChatMessage("Luau Today!");
-                            this.SendChatMessage("I will not be in bed until after 2:00 P.M.");
+                            this.SendChatMessage("今天是夏威夷宴会！");
+                            this.SendChatMessage("下午2点前我不会睡觉。");
                         }
                         Luau();
                     }
@@ -1228,8 +1227,8 @@ namespace Always_On_Server
 
                         if (currentTime >= 600 && currentTime <= 630)
                         {
-                            this.SendChatMessage("Dance of the Moonlight Jellies Tonight!");
-                            this.SendChatMessage("I will not be in bed until after 12:00 A.M.");
+                            this.SendChatMessage("今天是月光水母起舞！");
+                            this.SendChatMessage("午夜12点前我不会睡觉。");
                         }
                         DanceOfTheMoonlightJellies();
                     }
@@ -1240,7 +1239,8 @@ namespace Always_On_Server
 
                         if (currentTime >= 600 && currentTime <= 630)
                         {
-                            this.SendChatMessage("Stardew Valley Fair Today!");
+                            this.SendChatMessage("今天是星露谷展览会！");
+                            this.SendChatMessage("下午3点前我不会睡觉。");
                             this.SendChatMessage("I will not be in bed until after 3:00 P.M.");
                         }
                         StardewValleyFair();
@@ -1252,8 +1252,8 @@ namespace Always_On_Server
 
                         if (currentTime >= 600 && currentTime <= 630)
                         {
-                            this.SendChatMessage("Spirit's Eve Tonight!");
-                            this.SendChatMessage("I will not be in bed until after 12:00 A.M.");
+                            this.SendChatMessage("今天是万灵节！");
+                            this.SendChatMessage("午夜12点前我不会睡觉。");
                         }
                         SpiritsEve();
                     }
@@ -1264,8 +1264,8 @@ namespace Always_On_Server
 
                         if (currentTime >= 600 && currentTime <= 630)
                         {
-                            this.SendChatMessage("Festival of Ice Today!");
-                            this.SendChatMessage("I will not be in bed until after 2:00 P.M.");
+                            this.SendChatMessage("今天是冰雪节！");
+                            this.SendChatMessage("下午2点前我不会睡觉。");
                         }
                         FestivalOfIce();
                     }
@@ -1276,8 +1276,8 @@ namespace Always_On_Server
 
                         if (currentTime >= 600 && currentTime <= 630)
                         {
-                            this.SendChatMessage("Feast of the Winter Star Today!");
-                            this.SendChatMessage("I will not be in bed until after 2:00 P.M.");
+                            this.SendChatMessage("今天是冬日星盛宴！");
+                            this.SendChatMessage("下午2点前我不会睡觉。");
                         }
                         FeastOfWinterStar();
                     }
@@ -1312,7 +1312,7 @@ namespace Always_On_Server
                         if (!Game1.player.hasRustyKey)
                         {
                             int museumItemCount = Game1.netWorldState.Value.MuseumPieces.Length;
-                            this.Monitor.Log("Checking museum items: " + museumItemCount.ToString(), LogLevel.Info);
+                            this.Monitor.Log($"正在检查博物馆捐赠品: 当前{museumItemCount}件", LogLevel.Info);
                             if (museumItemCount >= 60)
                             {
                                 Game1.player.eventsSeen.Add("295672");
@@ -1341,7 +1341,7 @@ namespace Always_On_Server
                             {
                                 Game1.player.Money -= 5000;
                                 Game1.player.mailReceived.Add("JojaMember");
-                                this.SendChatMessage("Buying Joja Membership");
+                                this.SendChatMessage("已购买Joja会员");
 
                             }
 
@@ -1350,7 +1350,7 @@ namespace Always_On_Server
                                 Game1.player.Money -= 15000;
                                 Game1.player.mailReceived.Add("ccBoilerRoom");
                                 Game1.player.mailReceived.Add("jojaBoilerRoom");
-                                this.SendChatMessage("Buying Joja Minecarts");
+                                this.SendChatMessage("已购买Joja项目: 矿车");
 
                             }
 
@@ -1359,7 +1359,7 @@ namespace Always_On_Server
                                 Game1.player.Money -= 20000;
                                 Game1.player.mailReceived.Add("ccFishTank");
                                 Game1.player.mailReceived.Add("jojaFishTank");
-                                this.SendChatMessage("Buying Joja Panning");
+                                this.SendChatMessage("已购买Joja项目: 闪闪发光的圆形巨石");
 
                             }
 
@@ -1368,7 +1368,7 @@ namespace Always_On_Server
                                 Game1.player.Money -= 25000;
                                 Game1.player.mailReceived.Add("ccCraftsRoom");
                                 Game1.player.mailReceived.Add("jojaCraftsRoom");
-                                this.SendChatMessage("Buying Joja Bridge");
+                                this.SendChatMessage("已购买Joja项目: 桥梁修理");
 
                             }
 
@@ -1377,7 +1377,7 @@ namespace Always_On_Server
                                 Game1.player.Money -= 35000;
                                 Game1.player.mailReceived.Add("ccPantry");
                                 Game1.player.mailReceived.Add("jojaPantry");
-                                this.SendChatMessage("Buying Joja Greenhouse");
+                                this.SendChatMessage("已购买Joja项目: 温室");
 
                             }
 
@@ -1386,7 +1386,7 @@ namespace Always_On_Server
                                 Game1.player.Money -= 40000;
                                 Game1.player.mailReceived.Add("ccVault");
                                 Game1.player.mailReceived.Add("jojaVault");
-                                this.SendChatMessage("Buying Joja Bus");
+                                this.SendChatMessage("已购买Joja项目: 公交车站整修");
                                 Game1.player.eventsSeen.Add("502261");
                             }
                         }
@@ -1685,7 +1685,7 @@ namespace Always_On_Server
                 return;
 
             // shipping menu "OK" click through code
-            this.Monitor.Log("This is the Shipping Menu");
+            this.Monitor.Log("这是售卖菜单");
             shippingMenuActive = true;
             if (Game1.activeClickableMenu is ShippingMenu)
             {
