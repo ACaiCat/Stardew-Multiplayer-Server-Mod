@@ -208,12 +208,17 @@ namespace Always_On_Server
         /// <param name="e">The event data.</param>
         private void OnRendered(object sender, RenderedEventArgs e)
         {
+            if (!IsEnabled)
+            {
+                return;
+            }
+            
             //draw a textbox in the top left corner saying Server On
-            if (Game1.options.enableServer && IsEnabled)
+            if (Game1.options.enableServer)
             {
                 int connectionsCount = Game1.server.connectionsCount;
                 DrawTextBox(5, 100, Game1.dialogueFont, "服务器模式已开启");
-                DrawTextBox(5, 180, Game1.dialogueFont, $"按{this.Config.serverHotKey}打开/关闭");
+                DrawTextBox(5, 180, Game1.dialogueFont, $"按{this.Config.serverHotKey}开关服务器模式");
                 int profitMargin = this.Config.profitmargin;
                 DrawTextBox(5, 260, Game1.dialogueFont, $"利润率: {profitMargin}%");
                 DrawTextBox(5, 340, Game1.dialogueFont, $"当前有{connectionsCount}名玩家在线");
@@ -238,11 +243,10 @@ namespace Always_On_Server
 
 
                     this.Monitor.Log("服务器模式已开启!", LogLevel.Info);
-                    Game1.chatBox.addInfoMessage("主机处于服务器模式!!");
+                    Game1.chatBox.addInfoMessage("主机已开启服务器模式! (系统控制)");
 
                     Game1.displayHUD = true;
-                    Game1.addHUDMessage(new HUDMessage("服务器模式已开启!"));
-
+                    Game1.addHUDMessage(HUDMessage.ForCornerTextbox("服务器模式已开启!"));
                     Game1.options.pauseWhenOutOfFocus = false;
 
 
@@ -286,10 +290,10 @@ namespace Always_On_Server
                     IsEnabled = false;
                     this.Monitor.Log("服务器模式已关闭!", LogLevel.Info);
 
-                    Game1.chatBox.addInfoMessage("主机已恢复控制!");
+                    Game1.chatBox.addInfoMessage("主机已关闭服务器模式! (玩家控制)");
 
                     Game1.displayHUD = true;
-                    Game1.addHUDMessage(new HUDMessage("服务器模式已关闭!"));
+                    Game1.addHUDMessage(HUDMessage.ForCornerTextbox("服务器模式已关闭!"));
 
                     //set player levels to stored levels
 
@@ -335,11 +339,11 @@ namespace Always_On_Server
                         Helper.ReadConfig<ModConfig>();
                         IsEnabled = true;
                         this.Monitor.Log("服务器模式已开启!", LogLevel.Info);
-                        Game1.chatBox.addInfoMessage("主机处于服务器模式!");
+                        
+                        Game1.chatBox.addInfoMessage("主机已开启服务器模式! (系统控制)");
 
                         Game1.displayHUD = true;
-                        Game1.addHUDMessage(new HUDMessage("服务器模式已开启!"));
-
+                        Game1.addHUDMessage(HUDMessage.ForCornerTextbox("服务器模式已开启!"));
                         Game1.options.pauseWhenOutOfFocus = false;
                         // store levels, set in game levels to max
                         var data = this.Helper.Data.ReadJsonFile<ModData>($"data/{Constants.SaveFolderName}.json") ?? new ModData();
@@ -372,18 +376,17 @@ namespace Always_On_Server
                         Game1.player.setSkillLevel("Fishing", 10);
                         Game1.player.setSkillLevel("Combat", 10);
                         ///////////////////////////////////////////
-                        Game1.addHUDMessage(new HUDMessage("服务器模式已就绪!"));
+                        Game1.addHUDMessage(HUDMessage.ForCornerTextbox("服务器模式已就绪!"));
                     }
                     else
                     {
                         IsEnabled = false;
                         this.Monitor.Log("服务器模式已关闭!", LogLevel.Info);
-
-                        Game1.chatBox.addInfoMessage("主机已恢复控制!");
-
+                        
+                        Game1.chatBox.addInfoMessage("主机已关闭服务器模式! (玩家控制)");
+                        
                         Game1.displayHUD = true;
-                        Game1.addHUDMessage(new HUDMessage("服务器模式已关闭!"));
-
+                        Game1.addHUDMessage(HUDMessage.ForCornerTextbox("服务器模式已关闭!"));
                         //set player levels to stored levels
                         
                         // Skill numbers
