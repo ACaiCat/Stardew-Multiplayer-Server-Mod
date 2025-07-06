@@ -1,10 +1,10 @@
 {
   "Name": "星露谷服务器模组",
   "Author": "funny-snek & Zuberii & moy & Cai汉化",
-  "Version": "1.0.5 (汉)",
+  "Version": "1.0.5-chinese",
   "Description": "一个无头服务器模组.",
   "UniqueID": "moy.Always_On_Server_Chinese",
-  "EntryDll": "Stardew-Multiplayer-Server-Chinese.dll",
+  "EntryDll": "Stardew-Multiplayer-Server.dll",
   "MinimumApiVersion": "4.0",
   "UpdateKeys": [ ]
 }
